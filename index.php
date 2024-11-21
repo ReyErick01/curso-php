@@ -1,20 +1,20 @@
 <?php
+
+
     const API_URL = "https://whenisthenextmcufilm.com/api";
-    // Obtener el contenido de la API
-    $result = @file_get_contents(API_URL);
-
-    // Verificar si la solicitud fue exitosa
-    if ($result === false) {
-        die("Error al acceder a la API");
-    }
-
-    // Decodificar el resultado JSON
+    # Inicializar una nueva sesión de cURL; ch = cURL handle
+    $ch = curl_init(API_URL);
+    // Indicar que queremos recibir el resultado de la petición y no mostrarle en pantalla
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    /* Ejecutar la petición
+    y guardamos el resultado 
+    */ 
+    $result = curl_exec($ch);
     $data = json_decode($result, true);
 
-    // Verificar si hubo un error en la decodificación JSON
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        die("Error en la decodificación JSON: " . json_last_error_msg());
-    }
+    curl_close($ch);
+
+    var_dump($data);
     
 ?>
 
